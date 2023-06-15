@@ -1,0 +1,15 @@
+[tool.poetry]
+name = "telco-customer-churn"
+version = "0.1.0"
+description = ""
+authors = ["ge0rgeth0mas <georgethomas1912@gmail.com>"]
+readme = "README.md"
+packages = [{include = "telco_customer_churn"}]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
