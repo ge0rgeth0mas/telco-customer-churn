@@ -16,6 +16,8 @@ scikit-learn = "^1.2.2"
 plotly = "^5.15.0"
 nbformat = "^5.9.0"
 lazypredict = "^0.2.12"
+imbalanced-learn = "^0.10.1"
+xgboost = "^1.7.6"
 
 
 [tool.poetry.group.dev.dependencies]
