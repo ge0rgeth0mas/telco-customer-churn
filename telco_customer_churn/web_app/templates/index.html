@@ -1,0 +1,174 @@
+<!-- index.html -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Customer Churn Prediction</title>
+</head>
+<body>
+    <h1>Customer Churn Prediction</h1>
+    <form action="/predict" method="post">
+
+        <!-- Gender -->
+        <label for="gender">Gender:</label><br>
+        <select id="gender" name="Gender">
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+        </select><br>
+
+        <!-- Senior Citizen -->
+        <label for="senior">Senior Citizen:</label><br>
+        <select id="senior" name="SeniorCitizen">
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+        </select><br>
+
+        <!-- Partner -->
+        <label for="partner">Partner:</label><br>
+        <select id="partner" name="Partner">
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+        </select><br>
+
+        <!-- Dependents -->
+        <label for="dependents">Partner:</label><br>
+        <select id="dependents" name="Dependents">
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+        </select><br>
+
+        <!-- MultipleLines -->
+        <label for="phoneService">Phone Service:</label><br>
+        <select id="phoneService" name="PhoneService">
+            <option value="No phone service">No Phone Service</option>
+            <option value="No">Single Line</option>
+            <option value="Yes">Multiple Lines</option>
+        </select><br>
+
+        <!-- InternetService -->
+        <label for="internetService">Internet Service:</label><br>
+        <select id="internetService" name="InternetService" onchange="updateOptions()">
+            <option value="No internet service">No Internet Service</option>
+            <option value="DSL">DSL</option>
+            <option value="Fiber Optic">Fiber Optic</option>
+        </select><br>
+
+        <!-- OnlineSecurity -->
+        <div id="onlineSecurityDiv" style="display: none;">
+            <label for="onlineSecurity">Online Security:</label><br>
+            <select id="onlineSecurity" name="OnlineSecurity">
+                <option value="No">No</option>
+                <option value="Yes">Yes</option>
+            </select><br>
+        </div>
+
+        <!-- OnlineBackup -->
+        <div id="onlineBackupDiv" style="display: none;">
+            <label for="onlineBackup">Online Backup:</label><br>
+            <select id="onlineBackup" name="OnlineBackup">
+                <option value="No">No</option>
+                <option value="Yes">Yes</option>
+            </select><br>
+        </div>
+
+        <!-- DeviceProtection -->
+        <div id="deviceProtection" style="display: none;">
+            <label for="deviceProtection">Device Protection:</label><br>
+            <select id="deviceProtection" name="DeviceProtection">
+                <option value="No">No</option>
+                <option value="Yes">Yes</option>
+            </select><br>
+        </div>
+
+        <!-- TechSupport -->
+        <div id="techSupport" style="display: none;">
+            <label for="techSupport">Tech Support:</label><br>
+            <select id="techSupport" name="TechSupport">
+                <option value="No">No</option>
+                <option value="Yes">Yes</option>
+            </select><br>
+        </div>
+
+        <!-- StreamingTV -->
+        <div id="streamingTV" style="display: none;">
+            <label for="streamingTV">Streaming TV:</label><br>
+            <select id="streamingTV" name="StreamingTV">
+                <option value="No">No</option>
+                <option value="Yes">Yes</option>
+            </select><br>
+        </div>
+
+        <!-- StreamingMovies -->
+        <div id="streamingMovies" style="display: none;">
+            <label for="streamingMovies">Streaming Movies:</label><br>
+            <select id="streamingMovies" name="StreamingMovies">
+                <option value="No">No</option>
+                <option value="Yes">Yes</option>
+            </select><br>
+        </div>
+
+        <!-- PaperlessBilling -->
+        <label for="paperlessBilling">Paperless Billing:</label><br>
+        <select id="paperlessBilling" name="PaperlessBilling">
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+        </select><br>
+
+        <!-- PaymentMethod -->
+        <label for="paymentMethod">Payment Method:</label><br>
+        <select id="paymentMethod" name="PaymentMethod">
+            <option value="Bank transfer (automatic)">Bank transfer (automatic)</option>
+            <option value="Credit card (automatic)">Credit card (automatic)</option>
+            <option value="Electronic check">Electronic check</option>
+            <option value="Mailed check">Mailed check</option>
+        </select><br>
+
+        <!-- Contract -->
+        <label for="contract">Contract:</label><br>
+        <select id="contract" name="Contract">
+            <option value="Month-to-month">Month-to-month</option>
+            <option value="One year">One year</option>
+            <option value="Two year">Two year</option>
+        </select><br>
+
+        <!-- Tenure -->
+        <label for="tenure">Tenure:</label><br>
+        <input type="number" id="tenure" name="tenure" required><br>
+        
+        <!-- MonthlyCharges -->
+        <label for="MonthlyCharges">Monthly Charges:</label><br>
+        <input type="number" step="0.01" id="MonthlyCharges" name="MonthlyCharges" required><br>
+
+
+        <input type="submit" value="Predict">
+    </form>
+
+    <script>
+        function updateOptions() {
+            const internetService = document.getElementById("internetService");
+            const onlineSecurityDiv = document.getElementById("onlineSecurityDiv");
+            const onlineBackupDiv = document.getElementById("onlineBackupDiv");
+            const deviceProtection = document.getElementById("deviceProtection");
+            const techSupport = document.getElementById("techSupport");
+            const streamingTV = document.getElementById("streamingTV");
+            const streamingMovies = document.getElementById("streamingMovies");
+
+            if (internetService.value === "No Internet Service") {
+                onlineSecurityDiv.style.display = "none";
+                onlineBackupDiv.style.display = "none";
+                deviceProtection.style.display = "none";
+                techSupport.style.display = "none";
+                streamingTV.style.display = "none";
+                streamingMovies.style.display = "none";
+            } else {
+                onlineSecurityDiv.style.display = "block";
+                onlineBackupDiv.style.display = "block";
+                deviceProtection.style.display = "block";
+                techSupport.style.display = "block";
+                streamingTV.style.display = "block";
+                streamingMovies.style.display = "block";
+            }
+        }
+    </script>
+</body>
+</html>

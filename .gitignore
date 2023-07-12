@@ -4,3 +4,4 @@ telco_customer_churn/modeling/feature_engineering_base_model_selection.ipynb
 __pycache__
 .DS_Store
 telco_customer_churn/.DS_Store
+*/.DS_Store
