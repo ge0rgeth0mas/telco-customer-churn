@@ -19,6 +19,8 @@ lazypredict = "^0.2.12"
 imbalanced-learn = "^0.10.1"
 xgboost = "^1.7.6"
 eli5 = "^0.13.0"
+fastapi = "^0.100.0"
+uvicorn = "^0.22.0"
 
 
 [tool.poetry.group.dev.dependencies]

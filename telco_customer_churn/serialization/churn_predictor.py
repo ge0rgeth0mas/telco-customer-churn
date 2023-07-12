@@ -44,7 +44,17 @@ transformer = [('OH1', OneHotEncoder(sparse_output=False, drop=drop_no), cat_col
 
 preprocessor = ColumnTransformer(transformer)
 
-X_preprocessed = preprocessor.fit_transform(X)
+preprocessor.fit(X)
+# Export preprocessor
+preprocessor_path = Path.cwd() / 'telco_customer_churn' / 'serialization' / 'preprocessor.pickle'
+try:
+    with open(preprocessor_path, 'wb') as f:
+        pickle.dump(preprocessor, f)
+        print("Model saved sucessfully...")
+except Exception as e:
+    print("Error wile saving preprocessor : ", e)
+
+X_preprocessed = preprocessor.transform(X)
 
 feature_names = []
 for name, trans, column in preprocessor.transformers_:
