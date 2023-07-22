@@ -67,7 +67,7 @@ def read_root(request: Request):
     return templates.TemplateResponse("index.html", {"request": request})
 
 @app.post('/predict')
-async def predict_churn(customer_input: CustomerInput):
+async def predict_churn(customer_input : CustomerInput):
     input_data = customer_input.model_dump()
     input_data = pd.DataFrame([input_data])
     X = transformer.transform(input_data)
@@ -75,23 +75,3 @@ async def predict_churn(customer_input: CustomerInput):
     X.rename(columns=column_rename, inplace=True)
     prediction = model.predict(X)
     return {"churn_prediction": bool(prediction[0])}
-
-# # Test Case
-#   "gender": "Male",
-#   "SeniorCitizen": "No",
-#   "Partner": "No",
-#   "Dependents": "No",
-#   "tenure": 34,
-#   "MultipleLines": "No",
-#   "InternetService": "DSL",
-#   "OnlineSecurity": "Yes",
-#   "OnlineBackup": "No",
-#   "DeviceProtection": "Yes",
-#   "TechSupport": "No",
-#   "StreamingTV": "No",
-#   "StreamingMovies": "No",
-#   "Contract": "One year",
-#   "PaperlessBilling": "No",
-#   "PaymentMethod": "Mailed check",
-#   "MonthlyCharges": 56.95,
-#   "TotalCharges": 1889.5
