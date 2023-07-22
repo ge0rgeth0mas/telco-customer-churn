@@ -27,18 +27,19 @@ except Exception as e:
     print("Error while loading model: ", e)
 
 # Import feature names
-columns_path = Path.cwd() / 'telco_customer_churn' / 'serialization' / 'columns.json'
+columns_path = Path.cwd() / 'telco_customer_churn' / 'serialization' / 'column_rename.json'
 try:
     with open(columns_path, "r") as f:
-        columns_dict = json.loads(f.read())
-        column_names = columns_dict['columns']
+        column_dict = json.loads(f.read())
+        feature_names = column_dict['feature_names']
+        column_rename = column_dict['column_rename']
 except Exception as e:
     print("Error while loading columns: ", e)
 
 
 from fastapi.templating import Jinja2Templates
 
-templates = Jinja2Templates(directory='templates')
+templates = Jinja2Templates(directory='./telco_customer_churn/web_app/templates')
 
 class CustomerInput(BaseModel):
     
@@ -59,6 +60,7 @@ class CustomerInput(BaseModel):
     PaperlessBilling : str
     PaymentMethod : str
     MonthlyCharges : float
+    TotalCharges : float
 
 @app.get("/")
 def read_root(request: Request):
@@ -67,30 +69,29 @@ def read_root(request: Request):
 @app.post('/predict')
 async def predict_churn(customer_input: CustomerInput):
     input_data = customer_input.model_dump()
-    input_data['TotalCharges']=input_data['tenure']*input_data['MonthlyCharges']
     input_data = pd.DataFrame([input_data])
     X = transformer.transform(input_data)
-    X = pd.DataFrame(X, columns=column_names)
-    print(X)
+    X = pd.DataFrame(X, columns=feature_names)
+    X.rename(columns=column_rename, inplace=True)
     prediction = model.predict(X)
-    # return {"churn_prediction": bool(prediction[0])}
-    return X.to_dict()
+    return {"churn_prediction": bool(prediction[0])}
 
-
-#   "Gender": "Male",
-#   "SeniorCitizen": "Yes",
-#   "Partner": "Yes",
-#   "Dependents": "Yes",
-#   "MultipleLines": "Yes",
+# # Test Case
+#   "gender": "Male",
+#   "SeniorCitizen": "No",
+#   "Partner": "No",
+#   "Dependents": "No",
+#   "tenure": 34,
+#   "MultipleLines": "No",
 #   "InternetService": "DSL",
 #   "OnlineSecurity": "Yes",
-#   "OnlineBackup": "Yes",
+#   "OnlineBackup": "No",
 #   "DeviceProtection": "Yes",
-#   "TechSupport": "Yes",
-#   "StreamingTV": "Yes",
-#   "StreamingMovies": "Yes",
-#   "PaperlessBilling": "Yes",
-#   "PaymentMethod": "Mailed check",
+#   "TechSupport": "No",
+#   "StreamingTV": "No",
+#   "StreamingMovies": "No",
 #   "Contract": "One year",
-#   "Tenure": 2,
-#   "MonthlyCharges": 30.00
+#   "PaperlessBilling": "No",
+#   "PaymentMethod": "Mailed check",
+#   "MonthlyCharges": 56.95,
+#   "TotalCharges": 1889.5

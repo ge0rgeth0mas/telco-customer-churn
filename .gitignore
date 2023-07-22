@@ -5,3 +5,7 @@ __pycache__
 .DS_Store
 telco_customer_churn/.DS_Store
 */.DS_Store
+telco_customer_churn/web_app/templates/test.html
+telco_customer_churn/serialization/tempCodeRunnerFile.py
+.vscode
+images

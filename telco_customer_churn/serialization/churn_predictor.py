@@ -50,7 +50,7 @@ preprocessor_path = Path.cwd() / 'telco_customer_churn' / 'serialization' / 'pre
 try:
     with open(preprocessor_path, 'wb') as f:
         pickle.dump(preprocessor, f)
-        print("Model saved sucessfully...")
+        print("Preprocessor saved sucessfully...")
 except Exception as e:
     print("Error wile saving preprocessor : ", e)
 
@@ -96,12 +96,15 @@ try:
 except Exception as e:
     print("Error wile saving model : ", e)
 
-column_names = X_resampled.columns.to_list()
-columns_path = Path.cwd() / 'telco_customer_churn' / 'serialization' / 'columns.json'
-columns_dict = {'columns' : column_names}
+# column_names = X_resampled.columns.to_list()
+columns_path = Path.cwd() / 'telco_customer_churn' / 'serialization' / 'column_rename.json'
+columns_dict = {'feature_names': feature_names,
+                'column_rename' : column_rename}
 try:
     with open(columns_path, "w") as f:
         f.write(json.dumps(columns_dict))
     print("Coulmns list saved successfully")
 except Exception as e:
     print("Error while saving columns :", e)
+
+print(X_resampled.columns.to_list())
