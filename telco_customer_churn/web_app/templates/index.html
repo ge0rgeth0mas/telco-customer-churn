@@ -148,6 +148,7 @@
     </form>
 
     <div id="predictionResult"></div>
+    <div id="probability"></div>
 
     <script>
         function updateOptions() {
@@ -198,9 +199,12 @@
                 // .then(data => console.log(data))
                 .then(result => {
                     if (result.churn_prediction === true) {
-                    predictionResult.innerHTML = "Customer will churn";
+                    predictionResult.innerHTML = `Customer will churn`;
+                    probability.innerHTML = `Chances of churn = ${result.churn}%`;
                     } else {
-                    predictionResult.innerHTML = "Customer will not churn";
+                    predictionResult.innerHTML = `Customer will not churn`;
+                    probability.innerHTML = `Chances of retention = ${result.retention}%`;
+
                     }
                 })
                 .catch(error => console.log(error));

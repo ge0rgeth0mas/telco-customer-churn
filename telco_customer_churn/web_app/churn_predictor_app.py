@@ -74,4 +74,7 @@ async def predict_churn(customer_input : CustomerInput):
     X = pd.DataFrame(X, columns=feature_names)
     X.rename(columns=column_rename, inplace=True)
     prediction = model.predict(X)
-    return {"churn_prediction": bool(prediction[0])}
+    probability = model.predict_proba(X)
+    return {"churn_prediction": bool(prediction[0]),
+            "retention": round(probability[0][0]*100,2),
+            "churn": round(probability[0][1]*100,2)}
