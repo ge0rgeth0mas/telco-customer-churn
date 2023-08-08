@@ -9,3 +9,7 @@ telco_customer_churn/web_app/templates/test.html
 telco_customer_churn/serialization/tempCodeRunnerFile.py
 .vscode
 images
+telco_customer_churn/web_app/templates/test.css
+telco_customer_churn/web_app/templates/test1.html
+telco_customer_churn/web_app/templates/test1.css
+.DS_Store

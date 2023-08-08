@@ -1,4 +1,5 @@
 from fastapi import FastAPI, Request
+from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 import pickle
 import json
@@ -38,6 +39,8 @@ except Exception as e:
 
 
 from fastapi.templating import Jinja2Templates
+
+app.mount("/static", StaticFiles(directory="telco_customer_churn/web_app/static"), name="static")
 
 templates = Jinja2Templates(directory='./telco_customer_churn/web_app/templates')
 
